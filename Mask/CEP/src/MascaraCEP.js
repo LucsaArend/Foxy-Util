@@ -21,7 +21,7 @@ function formatCEP(cep) {
     // Verifica se o CEP possui a quantidade correta de dígitos (8 dígitos)
     if (cep.length === 8) {
         // Aplica a máscara ao CEP (formato: 12345-678)
-        cep = cep.slice(0, 5) + '-' + cep.slice(5);
+        cep = cep.slice(0, 2) + '.' + cep.slice(2, 5) + '-' + cep.slice(5);
     }else if(cep.length > 8){
         cep = cep.slice(0, 8)
     }
