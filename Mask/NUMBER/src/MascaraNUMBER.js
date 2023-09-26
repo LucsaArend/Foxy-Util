@@ -9,12 +9,12 @@ function FA_Mask_Register(){
 function registerFAMaskDocEvents() {
     $("input[data-type='number']").on('keyup blur input', function() {
         const inputValue = $(this).val();
-        $(this).val(formatCPF(inputValue));
+        $(this).val(formatNUMBER(inputValue));
     });
 }
 
 function formatNUMBER(input) {
-    let inputValue = input.value;
+    let inputValue = input;
     // Remove caracteres não numéricos, exceto vírgulas
     const cleanedValue = inputValue.replace(/[^0-9,.]/g, '');
     // Garante que não haja mais de uma vírgula no número
