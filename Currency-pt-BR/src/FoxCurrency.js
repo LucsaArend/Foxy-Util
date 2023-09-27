@@ -49,7 +49,12 @@ function formatFloatCurrency(input){
     //Format float values to string with mask R$ Real Brasil
     //inputString Example: "1000.52"
     // get input value
-    let input_val = input.toString();
+    let input_val
+    if(isNaN(input) || input === null || input === undefined){
+        input_val = "0";
+    } else {
+        input_val = input.toString();
+    }
     input_val = parseFloat(input_val).toFixed(2);
     input_val = input_val.toString();
     input_val = input_val.replace('.',',');
