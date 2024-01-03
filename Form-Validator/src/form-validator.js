@@ -20,37 +20,43 @@ function validarFormulario(prID,prSetFoco = false,prSetEvent = true) {
     }
     // Obtenha todos os elementtos <input> dentro do formulário
     let inputs = formulario.querySelectorAll('input');
-    for (let i = 0; i < inputs.length; i ++) {
-        if (inputs[i].hasAttribute('required')) {
+    let textareas = formulario.querySelectorAll('textarea');
+    retorno = FAformvalidador(inputs,prSetEvent,prID,retorno);
+    retorno = FAformvalidador(textareas,prSetEvent,prID,retorno);
+    return retorno;
+}
+function FAformvalidador(prList,prSetEvent,prID,retorno) {
+    for (let i = 0; i < prList.length; i ++) {
+        if (prList[i].hasAttribute('required')) {
             if (prSetEvent) {
-                inputs[i].addEventListener('keydown', function() {
+                prList[i].addEventListener('keydown', function() {
                     validarFormulario(prID,false,false);
                 });
             }
-            if (inputs[i].hasAttribute('minlength')) {
-                if (!inputs[i].value) {
+            if (prList[i].hasAttribute('minlength')) {
+                if (!prList[i].value) {
                     retorno = false;
-                    inputs[i].classList.add("is-invalid");
+                    prList[i].classList.add("is-invalid");
                     continue;
                 }
-                if (inputs[i].value.length < inputs[i].minLength) {
+                if (prList[i].value.length < prList[i].minLength) {
                     retorno = false;
-                    inputs[i].classList.add("is-invalid");
+                    prList[i].classList.add("is-invalid");
                 } else {
-                    inputs[i].classList.remove("is-invalid");
+                    prList[i].classList.remove("is-invalid");
                 }
             }
-            if (inputs[i].hasAttribute('maxlength')) {
-                if (!inputs[i].value) {
+            if (prList[i].hasAttribute('maxlength')) {
+                if (!prList[i].value) {
                     retorno = false;
-                    inputs[i].classList.add("is-invalid");
+                    prList[i].classList.add("is-invalid");
                     continue;
                 }
-                if (inputs[i].value.length > inputs[i].maxLength) {
+                if (prList[i].value.length > prList[i].maxLength) {
                     retorno = false;
-                    inputs[i].classList.add("is-invalid");
+                    prList[i].classList.add("is-invalid");
                 } else {
-                    inputs[i].classList.remove("is-invalid");
+                    prList[i].classList.remove("is-invalid");
                 }
             }
         }
