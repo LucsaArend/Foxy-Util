@@ -94,7 +94,7 @@ function formatCurrency(input, prAux) {
         let partLeft = input_val.substring(0,input_val.indexOf(","));
         //alert(partRight);
         //alert(partLeft);
-        number = formatNumber(partLeft) + ',' + partRight;
+        number = formatNumber(partLeft) + ',' + partRight.replace(/\D/g, '');
         //alert(number);
     } else {
         number = formatNumber(input_val);
@@ -117,3 +117,4 @@ function formatCurrency(input, prAux) {
     caret_pos = updated_len - original_len + caret_pos;
     input[0].setSelectionRange(caret_pos, caret_pos);
 }
+
