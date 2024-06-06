@@ -336,20 +336,3 @@ function formatCurrencyRG(input){
     input.val(formatted)
 }
 
-function formatFone(input) {
-    // Remove tudo que não for dígito do telefone
-    let inputVal
-    input.length <= 0 ? inputVal = '' : inputVal = input;
-    inputVal = input.toString();
-    inputVal = input.replace(/\D/g, '');
-
-    // Verifica o tamanho do telefone para determinar a máscara adequada
-    if (inputVal.length <= 10) {
-        // Formato: (99) 9999-9999
-        inputVal = inputVal.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
-    } else {
-        // Formato: (99) 99999-9999
-        inputVal = inputVal.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
-    }
-    return inputVal
-}
