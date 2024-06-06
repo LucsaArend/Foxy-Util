@@ -218,21 +218,6 @@ function getFoxAsomeNumbers(n) {
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "")
 }
 
-function formatFloatCurrency(input) {
-    //Format float values to string with mask R$ Real Brasil
-    //inputString Example: "1000.52"
-    // get input value
-    let input_val
-    if (isNaN(input) || input === null || input === undefined) {
-        input_val = "0";
-    } else {
-        input_val = input.toString();
-    }
-    input_val = parseFloat(input_val).toFixed(2);
-    input_val = input_val.toString();
-    input_val = input_val.replace('.', ',');
-}
-
 function formatFloatCurrency(input, decimalPlaces = 2) {
     // Format float values to string with the mask R$ Real Brasil
     // input Example: 1000.52
