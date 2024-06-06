@@ -12,13 +12,11 @@ function registerFAMaskDocEvents() {
         const formattedCPF = formatCPF(inputValue);
         $(this).val(formattedCPF);
     });
-
     $("input[data-type='cnpj']").on('keyup blur input', function() {
         const inputValue = $(this).val();
         const formattedCPF = formatCNPJ(inputValue);
         $(this).val(formattedCPF);
     });
-
     $("input[data-type='documento']").on('keyup blur input', function() {
         const inputValue = $(this).val();
         const documentType = inputValue.length < 15 ? 'CPF' : 'CNPJ';
@@ -29,6 +27,11 @@ function registerFAMaskDocEvents() {
         const inputValue = $(this).val();
         const formattedCEP = formatCEP(inputValue);
         $(this).val(formattedCEP);
+    });
+    $("input[data-type='cnae']").on('keyup blur input', function() {
+        const inputValue = $(this).val();
+        const formattedCNAE = formatCNAE(inputValue);
+        $(this).val(formattedCNAE);
     });
     $("input[data-type='number']").on('keyup blur input', function() {
         const inputValue = $(this).val();
@@ -62,6 +65,21 @@ function registerFAMaskDocEvents() {
             formatCurrencyFone($(this));
         }
     });
+}
+
+function formatCNAE(input) {
+    // Remover todos os caracteres não numéricos
+    let numero = input.replace(/\D/g, '');
+
+    // Verificar se o número tem o formato esperado (7 dígitos, 1 dígito, 2 dígitos)
+    if (numero.length === 10) {
+        let parte1 = numero.slice(0, 4);
+        let parte2 = numero.slice(4, 5);
+        let parte3 = numero.slice(5, 7);
+        return `${parte1}-${parte2}/0${parte3}`;
+    }else{
+        return numero.slice(0, 8)
+    }
 }
 
 function formatCPF(input) {
