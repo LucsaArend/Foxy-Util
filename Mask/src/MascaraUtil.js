@@ -84,15 +84,15 @@ function registerFAMaskDocEvents() {
 function formatCNAE(input) {
     // Remover todos os caracteres não numéricos
     let numero = input.replace(/\D/g, '');
-
-    // Verificar se o número tem o formato esperado (7 dígitos, 1 dígito, 2 dígitos)
-    if (numero.length === 10) {
-        let parte1 = numero.slice(0, 4);
-        let parte2 = numero.slice(4, 5);
-        let parte3 = numero.slice(5, 7);
-        return `${parte1}-${parte2}/0${parte3}`;
+    let result = '';
+    // Verificar o comprimento do número para determinar a formatação
+    //3312-1/02
+    if(numero.length <= 4){
+        return `${numero.slice(0, 4)}-`;
+    }else if(numero.length <= 5){
+        return `${numero.slice(0, 4)}-${numero.slice(4, 5)}/`;
     }else{
-        return numero.slice(0, 8)
+        return `${numero.slice(0, 4)}-${numero.slice(4, 5)}/${numero.slice(5, 7)}`;
     }
 }
 
