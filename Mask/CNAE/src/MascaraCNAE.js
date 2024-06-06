@@ -7,7 +7,7 @@ function FA_Mask_Register(){
 }
 
 function registerFAMaskDocEvents() {
-    $("input[data-type='cep']").on('keyup blur input', function() {
+    $("input[data-type='cnae']").on('keyup blur input', function() {
         const inputValue = $(this).val();
         const formattedCNAE = formatCNAE(inputValue);
         $(this).val(formattedCNAE);
