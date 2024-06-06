@@ -65,6 +65,20 @@ function registerFAMaskDocEvents() {
             formatCurrencyFone($(this));
         }
     });
+    $("input[data-type='currencyRG']").on({
+        keyup: function() {
+            formatCurrencyRG($(this));
+        },
+        blur: function() {
+            formatCurrencyRG($(this));
+        },
+        onfocusOut: function() {
+            formatCurrencyRG($(this));
+        },
+        focusout: function() {
+            formatCurrencyRG($(this));
+        }
+    });
 }
 
 function formatCNAE(input) {
@@ -288,7 +302,6 @@ function formatCurrency(input, prAux) {
     input[0].setSelectionRange(caret_pos, caret_pos);
 }
 
-
 function formatCurrencyFone(input) {
     let valueInput = input.val()
     valueInput = valueInput.toString();
@@ -306,6 +319,21 @@ function formatCurrencyFone(input) {
     }
 
     input.val(valueInput);
+}
+
+function formatCurrencyRG(input){
+    let cleaned = input.val().replace(/\D/g, '');
+
+    let formatted = '';
+    for (let i = 0; i < cleaned.length; i++) {
+        if (i === 2 || i === 5) {
+            formatted += '.';
+        } else if (i === 8) {
+            formatted += '-';
+        }
+        formatted += cleaned[i];
+    }
+    input.val(formatted)
 }
 
 function formatFone(input) {
