@@ -21,11 +21,11 @@ function validarFormulario(prID,prSetFoco = false,prSetEvent = true) {
     // Obtenha todos os elementtos <input> dentro do formulário
     let inputs = formulario.querySelectorAll('input');
     let textareas = formulario.querySelectorAll('textarea');
-    retorno = FAformvalidador(inputs,prSetEvent,prID,retorno);
-    retorno = FAformvalidador(textareas,prSetEvent,prID,retorno);
+    retorno = FAformvalidador(inputs, prSetFoco, prSetEvent,prID,retorno);
+    retorno = FAformvalidador(textareas, prSetFoco, prSetEvent,prID,retorno);
     return retorno;
 }
-function FAformvalidador(prList,prSetEvent,prID,retorno) {
+function FAformvalidador(prList,prSetFoco,prSetEvent,prID,retorno) {
     for (let i = 0; i < prList.length; i ++) {
         if (prList[i].hasAttribute('required')) {
             if (prSetEvent) {
@@ -37,11 +37,17 @@ function FAformvalidador(prList,prSetEvent,prID,retorno) {
                 if (!prList[i].value) {
                     retorno = false;
                     prList[i].classList.add("is-invalid");
+                    if (prSetFoco === true) {
+                        document.getElementById(prList[i].id).focus();
+                    }
                     continue;
                 }
                 if (prList[i].value.length < prList[i].minLength) {
                     retorno = false;
                     prList[i].classList.add("is-invalid");
+                    if (prSetFoco === true) {
+                        document.getElementById(prList[i].id).focus();
+                    }
                 } else {
                     prList[i].classList.remove("is-invalid");
                 }
@@ -50,11 +56,17 @@ function FAformvalidador(prList,prSetEvent,prID,retorno) {
                 if (!prList[i].value) {
                     retorno = false;
                     prList[i].classList.add("is-invalid");
+                    if (prSetFoco === true) {
+                        document.getElementById(prList[i].id).focus();
+                    }
                     continue;
                 }
                 if (prList[i].value.length > prList[i].maxLength) {
                     retorno = false;
                     prList[i].classList.add("is-invalid");
+                    if (prSetFoco === true) {
+                        document.getElementById(prList[i].id).focus();
+                    }
                 } else {
                     prList[i].classList.remove("is-invalid");
                 }
