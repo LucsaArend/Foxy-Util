@@ -36,6 +36,29 @@ function foxCurrencyFloat(prInputID) {
     }
 }
 
+function foxCurrencyInputFloat(prInputID) {
+    let value = prInputID.val();
+    if (value.indexOf(",") >= 0) {
+        let partRight = value.substring(value.indexOf(",")+1,value.length);
+        let partLeft = value.substring(0,value.indexOf(","));
+        value = getFoxAsomeNumbers(partLeft) + '.' + partRight;
+        value = parseFloat(value);
+        if (isNaN(value)) {
+            return 0;
+        } else {
+            return value;
+        }
+    } else {
+        value = getFoxAsomeNumbers(value);
+        value = parseFloat(value);
+        if (isNaN(value)) {
+            return 0;
+        } else {
+            return value;
+        }
+    }
+}
+
 function formatNumber(n) {
     // format number 1000000 to 1.234,56
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
