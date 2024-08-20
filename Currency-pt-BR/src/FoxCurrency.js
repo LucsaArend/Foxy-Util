@@ -23,10 +23,21 @@ function registerFACurrencyEvents() {
             formatCurrency($(this), "fix2");
         }
     });
+    let elementosCurrency = document.querySelectorAll('[data-type="currency"]')
+    for (let elemento of elementosCurrency) {
+        formatCurrency(elemento);
+    }
 }
 
+/* Pode passar o ID ou Input */
 function foxCurrencyFloat(prInputID) {
-    let value = $('#'+prInputID).val();
+    let value = '';
+    if (typeof prInputID === "string") {
+        value = $('#'+prInputID).val();
+    } else  {
+        value = prInputID.val();
+    }
+
     if (value.indexOf(",") >= 0) {
         let partRight = value.substring(value.indexOf(",")+1,value.length);
         let partLeft = value.substring(0,value.indexOf(","));
@@ -102,7 +113,14 @@ function formatCurrency(input, prAux) {
     // and puts cursor back in right position.
 
     // get input value
-    let input_val = input.val();
+    let input_val = '';
+    if (input instanceof jQuery) {
+        input_val = input.val();
+    } else {
+        input_val = input.value;
+    }
+
+    console.log(input_val);
 
     // don't validate empty input
     if (input_val === "") { return; }
@@ -125,19 +143,35 @@ function formatCurrency(input, prAux) {
     // send updated string to input
     if ((prAux === "fix2") && number.length > 0) {
         if (input_val.indexOf(",") <= 0) {
-            input.val('R$ ' + number + ',00');
+            if (input instanceof jQuery) {
+                input.val('R$ ' + number + ',00');
+            } else {
+                input.value = 'R$ ' + number + ',00';
+            }
         }
     } else {
-        input.val('R$ ' + number);
+        if (input instanceof jQuery) {
+            input.val('R$ ' + number);
+        } else {
+            input.value = 'R$ ' + number;
+        }
     }
 
     // original length
     let original_len = input_val.length;
     // initial caret position
-    let caret_pos = input.prop("selectionStart");
+    let caret_pos = null;
+    if (input instanceof jQuery) {
+        caret_pos = input.prop("selectionStart");
+    } else {
+        caret_pos = input.selectionStart;
+    }
     // put caret back in the right position
     let updated_len = input_val.length;
     caret_pos = updated_len - original_len + caret_pos;
-    input[0].setSelectionRange(caret_pos, caret_pos);
+    if (input instanceof jQuery) {
+        input[0].setSelectionRange(caret_pos, caret_pos);
+    } else {
+        input.setSelectionRange(caret_pos, caret_pos);
+    }
 }
-
