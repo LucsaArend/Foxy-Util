@@ -40,7 +40,7 @@ function FAformvalidador(prList,prSetEvent,prID,retorno,focus) {
                     retorno = false;
                     prList[i].classList.add("is-invalid");
                     if (focusTemp === true) {
-                        document.getElementById(prList[i].id).focus();
+                        document.getElementById(prList[i].id).scrollIntoView({ behavior: 'smooth', block: 'center' });
                         focusTemp = false;
                     }
                     continue;
@@ -49,7 +49,7 @@ function FAformvalidador(prList,prSetEvent,prID,retorno,focus) {
                     retorno = false;
                     prList[i].classList.add("is-invalid");
                     if (focusTemp === true) {
-                        document.getElementById(prList[i].id).focus();
+                        document.getElementById(prList[i].id).scrollIntoView({ behavior: 'smooth', block: 'center' });
                         focusTemp = false;
                     }
                 } else {
@@ -61,7 +61,7 @@ function FAformvalidador(prList,prSetEvent,prID,retorno,focus) {
                     retorno = false;
                     prList[i].classList.add("is-invalid");
                     if (focusTemp === true) {
-                        document.getElementById(prList[i].id).focus();
+                        document.getElementById(prList[i].id).scrollIntoView({ behavior: 'smooth', block: 'center' });
                         focusTemp = false;
                     }
                     continue;
@@ -70,7 +70,7 @@ function FAformvalidador(prList,prSetEvent,prID,retorno,focus) {
                     retorno = false;
                     prList[i].classList.add("is-invalid");
                     if (focusTemp === true) {
-                        document.getElementById(prList[i].id).focus();
+                        document.getElementById(prList[i].id).scrollIntoView({ behavior: 'smooth', block: 'center' });
                         focusTemp = false;
                     }
                 } else {
