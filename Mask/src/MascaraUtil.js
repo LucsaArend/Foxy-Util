@@ -65,20 +65,34 @@ function registerFAMaskDocEvents() {
             formatCurrencyFone($(this));
         }
     });
+    $("input[data-type='currencyRG']").on({
+        keyup: function() {
+            formatCurrencyRG($(this));
+        },
+        blur: function() {
+            formatCurrencyRG($(this));
+        },
+        onfocusOut: function() {
+            formatCurrencyRG($(this));
+        },
+        focusout: function() {
+            formatCurrencyRG($(this));
+        }
+    });
 }
 
 function formatCNAE(input) {
     // Remover todos os caracteres não numéricos
     let numero = input.replace(/\D/g, '');
-
-    // Verificar se o número tem o formato esperado (7 dígitos, 1 dígito, 2 dígitos)
-    if (numero.length === 10) {
-        let parte1 = numero.slice(0, 4);
-        let parte2 = numero.slice(4, 5);
-        let parte3 = numero.slice(5, 7);
-        return `${parte1}-${parte2}/0${parte3}`;
+    let result = '';
+    // Verificar o comprimento do número para determinar a formatação
+    //3312-1/02
+    if(numero.length <= 4){
+        return `${numero.slice(0, 4)}-`;
+    }else if(numero.length <= 5){
+        return `${numero.slice(0, 4)}-${numero.slice(4, 5)}/`;
     }else{
-        return numero.slice(0, 8)
+        return `${numero.slice(0, 4)}-${numero.slice(4, 5)}/${numero.slice(5, 7)}`;
     }
 }
 
@@ -204,21 +218,6 @@ function getFoxAsomeNumbers(n) {
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "")
 }
 
-function formatFloatCurrency(input) {
-    //Format float values to string with mask R$ Real Brasil
-    //inputString Example: "1000.52"
-    // get input value
-    let input_val
-    if (isNaN(input) || input === null || input === undefined) {
-        input_val = "0";
-    } else {
-        input_val = input.toString();
-    }
-    input_val = parseFloat(input_val).toFixed(2);
-    input_val = input_val.toString();
-    input_val = input_val.replace('.', ',');
-}
-
 function formatFloatCurrency(input, decimalPlaces = 2) {
     // Format float values to string with the mask R$ Real Brasil
     // input Example: 1000.52
@@ -288,7 +287,6 @@ function formatCurrency(input, prAux) {
     input[0].setSelectionRange(caret_pos, caret_pos);
 }
 
-
 function formatCurrencyFone(input) {
     let valueInput = input.val()
     valueInput = valueInput.toString();
@@ -308,20 +306,18 @@ function formatCurrencyFone(input) {
     input.val(valueInput);
 }
 
-function formatFone(input) {
-    // Remove tudo que não for dígito do telefone
-    let inputVal
-    input.length <= 0 ? inputVal = '' : inputVal = input;
-    inputVal = input.toString();
-    inputVal = input.replace(/\D/g, '');
+function formatCurrencyRG(input){
+    let cleaned = input.val().replace(/\D/g, '');
 
-    // Verifica o tamanho do telefone para determinar a máscara adequada
-    if (inputVal.length <= 10) {
-        // Formato: (99) 9999-9999
-        inputVal = inputVal.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
-    } else {
-        // Formato: (99) 99999-9999
-        inputVal = inputVal.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+    let formatted = '';
+    for (let i = 0; i < cleaned.length; i++) {
+        if (i === 2 || i === 5) {
+            formatted += '.';
+        } else if (i === 8) {
+            formatted += '-';
+        }
+        formatted += cleaned[i];
     }
-    return inputVal
+    input.val(formatted)
 }
+
